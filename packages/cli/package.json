@@ -1,6 +1,6 @@
 {
-  "name": "@changesets/cli",
-  "version": "2.24.4",
+  "name": "@sxw/changesets-cli",
+  "version": "2.24.5",
   "description": "Organise your package versioning and publishing to make both contributors and maintainers happy",
   "bin": {
     "changeset": "bin.js"
@@ -13,8 +13,8 @@
     "changelog",
     "commit"
   ],
-  "main": "dist/cli.cjs.js",
-  "module": "dist/cli.esm.js",
+  "main": "dist/changesets-cli.cjs.js",
+  "module": "dist/changesets-cli.esm.js",
   "author": "Changesets Contributors",
   "contributors": [
     "Ben Conolly",

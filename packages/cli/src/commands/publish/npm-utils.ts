@@ -25,11 +25,13 @@ function jsonParse(input: string) {
   }
 }
 
-function getCorrectRegistry(packageJson?: PackageJSON): string {
+function getCorrectRegistry(packageJson?: PackageJSON): string | undefined {
   const registry =
     packageJson?.publishConfig?.registry ?? process.env.npm_config_registry;
 
-  return !registry || registry === "https://registry.yarnpkg.com"
+  // return !registry || registry === "https://registry.yarnpkg.com"
+  // 删除对未传递 registry 的处理，让包管理工具自己处理(解决对 workspace 中 .npmrc 的支持)
+  return registry === "https://registry.yarnpkg.com"
     ? "https://registry.npmjs.org"
     : registry;
 }
@@ -89,13 +91,10 @@ export function getPackageInfo(packageJson: PackageJSON) {
     // `publish` to behave incorrectly. It can also cause issues when publishing private packages
     // as they will always give a 404, which will tell `publish` to always try to publish.
     // See: https://github.com/yarnpkg/yarn/issues/2935#issuecomment-355292633
-    let result = await spawn("npm", [
-      "info",
-      packageJson.name,
-      "--registry",
-      getCorrectRegistry(packageJson),
-      "--json",
-    ]);
+    const npmArgs = ["info", packageJson.name, "--json"];
+    const registry = getCorrectRegistry(packageJson);
+    registry && npmArgs.push("--registry", registry);
+    const result = await spawn("npm", npmArgs);
 
     // Github package registry returns empty string when calling npm info
     // for a non-existent package instead of a E404

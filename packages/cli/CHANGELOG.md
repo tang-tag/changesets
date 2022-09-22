@@ -1,4 +1,9 @@
-# @changesets/cli
+# @sxw/changesets-cli
+
+## 2.24.5
+
+### Patch Changes
+- Refactor: 修复支持顶级的 .npmrc　配置
 
 ## 2.24.4
 
@@ -957,7 +962,7 @@ The Changesets config is now written in JSON with fewer options. The new default
 ```json
 {
   "$schema": "https://unpkg.com/@changesets/config/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": "@sxw/changesets-cli/changelog",
   "commit": false,
   "linked": [],
   "access": "private"
